@@ -1,7 +1,10 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const express = require('express');
 const app = express();
 const connectDB = require('./config/db');
 const path = require('path');
+const cors = require('cors');
 
 app.use(express.static('public'));
 
@@ -11,7 +14,12 @@ app.use(express.json()); // for parsing application/json
 const PORT = process.env.PORT || 3000;
 connectDB();
 
+// Cors Middleware
+const corsOptions = {
+    origin: process.env.ALLOWED_CLIENT.split(','),
+}
 
+app.use(cors(corsOptions));
 
 // Template Engine
 app.set('views', path.join(__dirname, '/views'));
