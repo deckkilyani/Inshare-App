@@ -8,10 +8,10 @@ async function fetchData() {
 
     const pastDate = new Date(Date.now() - (24 * 60 * 60 * 1000));
     const files = await File.find({ createdAt: { $lt: pastDate} });
-    if(files.length > 0) {
-        files.forEach(file => {
-            file.remove();
-        });
+    //if(files.length > 0) {
+      //  files.forEach(file => {
+        //    file.remove();
+      //  });
 
         for(const file of files){
             try {
@@ -21,11 +21,12 @@ async function fetchData() {
             } catch (error) {
                 console.log(`error while deleting file ${error}`);
             }
+            console.log('Job done');
             
         }
 
-        console.log('Job done');
+     
     }
-}
+
 
 fetchData().then(process.exit);
